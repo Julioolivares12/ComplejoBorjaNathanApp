@@ -63,9 +63,10 @@ public class Login extends AppCompatActivity {
              // progressDialog.setMessage("iniciando session");
              // new LoginAsync(Login.this,txtEmail.getText().toString(),txtpass.getText().toString(),progressDialog).execute();
 
-                String url="http://192.168.1.10:8080/ComplejoAPI/validaLogin.php?email="+txtEmail.getText().toString()+"&pass="+txtpass.getText().toString();
+                //String url="http://192.168.1.10:8080/ComplejoAPI/validaLogin.php?email="+txtEmail.getText().toString()+"&pass="+txtpass.getText().toString();
+                String URL="http://192.168.1.10:8080/ComplejoApp/rest/login?email="+txtEmail.getText().toString()+"&pass="+txtpass.getText().toString();
                 //url.replace(" ","%20");
-               inicaSession(url);
+               inicaSession(URL);
             }
         });
     }
