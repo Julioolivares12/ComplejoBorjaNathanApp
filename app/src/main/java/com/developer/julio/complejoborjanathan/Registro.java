@@ -47,7 +47,7 @@ public class Registro extends AppCompatActivity {
         btnRegistro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String url= "";
+                String url= "http://192.168.1.10:8080/ComplejoApp/rest/registrarUsuario";
                 registrar(url);
             }
         });
@@ -62,10 +62,10 @@ public class Registro extends AppCompatActivity {
     }
     private void registrar(String url){
         RequestQueue queue = Volley.newRequestQueue(this);
-        final StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+        final StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                if(response.trim().equals("success")){
+                if(response.equals("success")){
                     Toast.makeText(Registro.this, "Register OK", Toast.LENGTH_LONG).show();
                     openLogin();
                 }else{
