@@ -4,27 +4,67 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     android:orientation="vertical"
     tools:context="com.developer.julio.complejoborjanathan.Login"
     android:weightSum="1">
 
     <LinearLayout
+        android:id="@+id/area_nombre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal">
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/til_nombre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="32dp">
+            <EditText
+                android:id="@+id/campo_nombre"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/til_nombre"
+                android:inputType="text"
+                android:singleLine="true" />
+        </android.support.design.widget.TextInputLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/area_apellido"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/area_nombre"
+        android:orientation="horizontal">
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/til_apellido"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginLeft="32dp">
+            <EditText
+                android:id="@+id/txtapellido"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/til_apellido"
+                android:inputType="text"
+                android:singleLine="true" />
+        </android.support.design.widget.TextInputLayout>
+    </LinearLayout>
+    <LinearLayout
         android:id="@+id/area_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_alignParentTop="true"
-
-        android:layout_marginRight="28dp"
-        android:layout_marginEnd="28dp"
-        tools:ignore="NotSibling">
+        android:layout_below="@+id/area_apellido"
+        android:orientation="horizontal">
 
         <android.support.design.widget.TextInputLayout
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:id="@+id/til_Email"
             android:layout_marginLeft="32dp"
-            android:layout_marginStart="32dp">
+            >
             <EditText
                 android:id="@+id/txtemail"
                 android:layout_width="300dp"
@@ -42,17 +82,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:id="@+id/area_pass"
-        android:layout_marginTop="54dp"
         android:layout_below="@+id/area_email"
-        android:layout_centerHorizontal="true">
+        android:orientation="horizontal">
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/til_pass"
             android:layout_marginLeft="32dp"
-            android:layout_marginStart="32dp">
+            >
 
             <EditText
                 android:id="@+id/txtpass"
@@ -60,38 +97,41 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="50dp"
                 android:ems="5"
-                android:hint="@string/password"
+                android:hint="@string/til_password"
                 android:inputType="textPassword"
                 android:textAppearance="?android:attr/textAppearanceLarge"
+
                 android:layout_centerHorizontal="true" />
+
         </android.support.design.widget.TextInputLayout>
 
     </LinearLayout>
-<!--button bar-->
+
+    <!--button bar-->
     <LinearLayout
-        android:id="@+id/button_bar"
+        android:id="@+id/bottom_bar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:orientation="horizontal"
         android:layout_alignParentBottom="true"
-        android:gravity="center_vertical">
-
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btnIngresar"
+            android:id="@+id/btnRegistrar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:backgroundTint="@color/colorAccent"
+            android:backgroundTint="@color/colorPrimaryDark"
             android:text="@string/ingresar"
             android:textColor="@android:color/white" />
-       <Button
-           android:layout_width="0dp"
-           android:layout_height="wrap_content"
-           android:id="@+id/btnLink"
-           android:layout_weight="1"
-           android:text="@string/crear_cuenta"
-           android:textColor="@color/colorPrimary"/>
+        <Button
+            android:layout_width="0dp"
+            android:id="@+id/btnCancelar"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/colorAccent"
+            android:text="@string/cancelar"
+            android:textColor="@android:color/white"/>
     </LinearLayout>
 
 </RelativeLayout>

@@ -1,7 +1,9 @@
 package com.developer.julio.complejoborjanathan;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -32,12 +35,15 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class Login extends AppCompatActivity {
+public class Login extends AppCompatActivity implements View.OnClickListener {
 
     private EditText txtEmail,txtpass;
 
     private Button btnIngresar;
+    private Button btnLink;
 
+
+    Context context=this;
    JSONArray jsonArray;
    JSONObject jsonObject;
    ProgressDialog progressDialog;
@@ -51,27 +57,49 @@ public class Login extends AppCompatActivity {
         txtEmail = (EditText)findViewById(R.id.txtemail);
         txtpass= (EditText)findViewById(R.id.txtpass);
 
+       // mostrarDatos();
+       // txtEmail.setText(mostrarEmail());
 
         btnIngresar = (Button)findViewById(R.id.btnIngresar);
+       btnLink = (Button)findViewById(R.id.btnLink);
 
 
-        btnIngresar.setOnClickListener(new View.OnClickListener() {
+        btnLink.setOnClickListener(this);
 
-            @Override
-            public void onClick(View view) {
-                //ProgressDialog progressDialog = new ProgressDialog(Login.this);
-             // progressDialog.setMessage("iniciando session");
-             // new LoginAsync(Login.this,txtEmail.getText().toString(),txtpass.getText().toString(),progressDialog).execute();
-
-                //String url="http://192.168.1.10:8080/ComplejoAPI/validaLogin.php?email="+txtEmail.getText().toString()+"&pass="+txtpass.getText().toString();
-                String URL="http://192.168.1.10:8080/ComplejoApp/rest/login?email="+txtEmail.getText().toString()+"&pass="+txtpass.getText().toString();
-                //url.replace(" ","%20");
-               inicaSession(URL);
-            }
-        });
+        btnIngresar.setOnClickListener(this);
     }
+    public void mostrarDatos(){
+        SharedPreferences sharedPreferences = getSharedPreferences("DatosAlumno",context.MODE_PRIVATE);
+        String nombre = sharedPreferences.getString("nombre","no hay datos");
+        txtEmail.setText(nombre);
+    }
+    public String mostrarEmail(){
+        String email;
+        SharedPreferences sharedPreferences = getSharedPreferences("DatosAlumno",context.MODE_PRIVATE);
+        email =sharedPreferences.getString("email","no hay datos");
 
-    private void inicaSession(String url){
+        return email;
+    }
+public void guardarPreferencias(String nombre,String pass,String id,String id_tipo,String urlImagen){
+        SharedPreferences sharedPreferences = getSharedPreferences("DatosAlumno",context.MODE_PRIVATE);
+        SharedPreferences.Editor  editor = sharedPreferences.edit();
+        editor.putString("AlumnoDataNombre",nombre);
+        editor.putString("AlumnoDataPass",pass);
+        editor.putString("AlumnoDataId",id);
+        editor.putString("AlumnoDataIdTipo",id_tipo);
+        editor.putString("AlumnoDataUrlImagen",urlImagen);
+        editor.commit();
+
+
+        //para leer las preferencia
+    /*
+      *  SharedPreferences shared  = getPreferences(context.MODE_PRIVATE);
+    String nombre = shared.getString("AlumnoDataNombre","no hay preferencias guardadas");
+    String pass = shared.getString("AlumnoDataPass","no ha datos");
+     */
+
+}
+    private void iniciaSession(String url){
         RequestQueue queue = Volley.newRequestQueue(this);
         final StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
@@ -79,6 +107,11 @@ public class Login extends AppCompatActivity {
                 try {
                     jsonObject = new JSONObject(response);
                     String pass = jsonObject.getString("pass");
+                    String nombre = jsonObject.getString("nombre");
+                    String id = jsonObject.getString("id_alumno");
+                    String id_tipo = jsonObject.getString("id_tipo");
+                    String urlImagen= jsonObject.getString("imagenUrl");
+                    guardarPreferencias(nombre,pass,id,id_tipo,urlImagen);
                     Log.d("password",pass);
                   int dato = obtenerDatosJson(response);
                   Log.d("dato",String.valueOf(dato));
@@ -104,6 +137,21 @@ public class Login extends AppCompatActivity {
         });
         queue.add(stringRequest);
     }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.btnIngresar:
+                String URL="http://192.168.1.10:8080/ComplejoApp/rest/login?email="+txtEmail.getText().toString()+"&pass="+txtpass.getText().toString();
+                iniciaSession(URL);
+                break;
+            case R.id.btnLink:
+                Intent irRegistro  = new Intent(getApplicationContext(),Registro.class);
+                startActivity(irRegistro);
+                break;
+        }
+    }
+
     // clase para trabajar en segundo plano
    public class LoginAsync extends AsyncTask<Void,Integer,Void>{
 

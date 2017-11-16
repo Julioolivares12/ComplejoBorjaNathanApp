@@ -2,7 +2,10 @@
     <string name="app_name">Complejo Borja Nathan</string>
     <string name="til_email">Email</string>
     <string name="til_password">Password</string>
+    <string name="til_nombre">nombre</string>
+    <string name="til_apellido">apellido</string>
     <string name="ingresar">Ingresar</string>
+    <string name="cancelar">cancelar</string>
     <string name="title_activity_home">Home</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -10,6 +13,8 @@
 
     <string name="action_settings">Settings</string>
     <string name="password">password</string>
-    <item name="visible" type="id"/>
-    <item name="masked" type="id"/>
+
+    <string name="crear_cuenta">Crear cuenta</string>
+    <item name="visible" type="id" />
+    <item name="masked" type="id" />
 </resources>
